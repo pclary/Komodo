@@ -34,7 +34,7 @@ namespace Radio
         _irqPin = irqPin;
         pinMode(_csnPin, OUTPUT);
         pinMode(_cePin, OUTPUT);
-        pinMode(_csnPin, INPUT);
+        pinMode(_irqPin, INPUT);
 
         // Disable nRF24L01+
         digitalWrite(_cePin, 0);
@@ -53,6 +53,7 @@ namespace Radio
         
         // Set up clear timer
         PITimer0.period(0.5f);
+        PITimer0.start(&clear);
     }
 
 
@@ -220,7 +221,7 @@ namespace Radio
             {
             case STATUS_RN_P_NO_P0:
                 rx_controller = data;
-                PITimer0.start(&clear);
+                PITimer0.reset();
                 break;
                 
             case STATUS_RN_P_NO_P1:
@@ -241,7 +242,6 @@ namespace Radio
     void clear()
     {
         rx_controller = 0;
-        PITimer0.stop();
     }
     
 }
