@@ -28,10 +28,12 @@ namespace Radio
 
     void initialize(int csnPin, int cePin, int irqPin, int controller)
     {
-        // Set up pins
         _csnPin = csnPin;
         _cePin = cePin;
         _irqPin = irqPin;
+        _controller = controller;
+        
+        // Set up pins
         pinMode(_csnPin, OUTPUT);
         pinMode(_cePin, OUTPUT);
         pinMode(_irqPin, INPUT);
@@ -45,8 +47,6 @@ namespace Radio
         // Set up SPI
         SPI.begin();
         SPI.setClockDivider(SPI_CLOCK_DIV16);
-        
-        _controller = controller;
         
         // Set up IRQ
         attachInterrupt(irqPin, receive, FALLING);

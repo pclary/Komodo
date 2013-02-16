@@ -1,10 +1,12 @@
 #include "drv8835.h"
 #include "Radio.h"
+#include "Servo.h"
 
 
 
 float xaxis, yaxis, turnaxis;
-Motor motor(3, 2);
+Motor motor(6, 7);
+Servo servo(3);
 int cycleCount = 0;
 
 
@@ -37,4 +39,5 @@ void loop()
     turnaxis = -0.0078125f * deadzone((int8_t)((Radio::rx_controller>>16)&0xff), 8);
     
     motor = yaxis;
+    servo = turnaxis * 60.0f;
 }

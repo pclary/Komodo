@@ -13,6 +13,7 @@ Motor::Motor(int speedPin, int phasePin)
     
     // Set PWM frequency to 40kHz
     analogWriteFrequency(speedPin, 40000);
+    analogWriteResolution(16);
     analogWrite(speedPin, 0);
 }
 
@@ -31,7 +32,7 @@ void Motor::write(float value)
     }
     
     // Set speed
-    analogWrite(speedPin, 255 * fabs(value));
+    analogWrite(speedPin, 65535 * fabs(value));
 }
 
 
