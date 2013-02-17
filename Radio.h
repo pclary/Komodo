@@ -11,8 +11,8 @@ namespace Radio
     void reset();
     void transmit(uint32_t data);
     
-    extern uint32_t rx_controller;
-    extern uint32_t rx_robot[RX_BUFFER_SIZE];
+    extern volatile uint32_t rx_controller;
+    extern volatile uint32_t rx_robot[RX_BUFFER_SIZE];
 };
 
 

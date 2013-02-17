@@ -1,5 +1,6 @@
 #include "Servo.h"
 #include <WProgram.h>
+#include "Hardware.h"
 
 
 
@@ -11,14 +12,13 @@ Servo::Servo(int pin, bool start)
     // Set up pwm
     pinMode(pwmPin, OUTPUT);
     analogWriteFrequency(pwmPin, 50);
-    analogWriteResolution(16);
     
     // Set default calibration
     calibrate(2000, 1000, 60.f, -60.f);
     
     // Start at center position
     pulseWidth = center;
-    analogWrite(pwmPin, (enabled ? (65535*pulseWidth)/20000 : 0));
+    pwmWrite(pwmPin, (enabled ? pulseWidth/20000.0f : 0.0f));
 }
 
 
@@ -48,7 +48,7 @@ void Servo::write(float degrees)
     degrees = (degrees > upperLimit ? upperLimit : (degrees < lowerLimit ? lowerLimit : degrees));
     
     pulseWidth = center + (int)(degrees * usPerDegree);
-    analogWrite(pwmPin, (enabled ? (65535*pulseWidth)/20000 : 0));
+    pwmWrite(pwmPin, (enabled ? pulseWidth/20000.0f : 0.0f));
 }
 
 
@@ -63,7 +63,7 @@ float Servo::read()
 void Servo::disable()
 {
     enabled = false;
-    analogWrite(pwmPin, 0);
+    pwmWrite(pwmPin, 0.0f);
 }
 
 
@@ -71,7 +71,7 @@ void Servo::disable()
 void Servo::enable()
 {
     enabled = true;
-    analogWrite(pwmPin, (65535*pulseWidth)/20000);
+    pwmWrite(pwmPin, pulseWidth/20000.0f);
 }
 
 

@@ -203,7 +203,7 @@ void PITimer::clear() {
 // until another full period of the timer's cycle has elapsed.
 // ------------------------------------------------------------
 void PITimer::reset() {
-  *PIT_TCTRL = 1;
+  *PIT_TCTRL = 2;
   *PIT_TCTRL = 3;
 }
 

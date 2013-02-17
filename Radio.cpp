@@ -21,8 +21,8 @@ namespace Radio
     int _irqPin;
     int _controller;
     unsigned rx_robot_pos;
-    uint32_t rx_controller;
-    uint32_t rx_robot[RX_BUFFER_SIZE];
+    volatile uint32_t rx_controller;
+    volatile uint32_t rx_robot[RX_BUFFER_SIZE];
 
 
 
@@ -46,7 +46,7 @@ namespace Radio
         
         // Set up SPI
         SPI.begin();
-        SPI.setClockDivider(SPI_CLOCK_DIV16);
+        SPI.setClockDivider(SPI_CLOCK_DIV2);
         
         // Set up IRQ
         attachInterrupt(irqPin, receive, FALLING);
