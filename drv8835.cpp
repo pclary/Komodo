@@ -1,5 +1,7 @@
 #include "drv8835.h"
+#include <WProgram.h>
 #include <cmath>
+#include "Hardware.h"
 
 
 
@@ -13,8 +15,7 @@ Motor::Motor(int speedPin, int phasePin)
     
     // Set PWM frequency to 40kHz
     analogWriteFrequency(speedPin, 40000);
-    analogWriteResolution(16);
-    analogWrite(speedPin, 0);
+    pwmWrite(speedPin, 0.0);
 }
 
 
@@ -32,7 +33,7 @@ void Motor::write(float value)
     }
     
     // Set speed
-    analogWrite(speedPin, 65535 * fabs(value));
+    pwmWrite(speedPin, fabs(value));
 }
 
 

@@ -1,3 +1,4 @@
+#include <WProgram.h>
 #include "drv8835.h"
 #include "Radio.h"
 #include "Servo.h"
@@ -30,14 +31,10 @@ void setup()
 
 void loop()
 {
-    while (millis() < cycleCount * 100);
-    
-    cycleCount++;
-    
     xaxis = 0.0078125f * deadzone((int8_t)((Radio::rx_controller>>0)&0xff), 8); // Convert to +/-1.0f range
     yaxis = -0.0078125f * deadzone((int8_t)((Radio::rx_controller>>8)&0xff), 8);
     turnaxis = -0.0078125f * deadzone((int8_t)((Radio::rx_controller>>16)&0xff), 8);
     
-    motor = yaxis;
+    motor = 0.5f;
     servo = turnaxis * 60.0f;
 }
