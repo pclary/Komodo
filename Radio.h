@@ -1,6 +1,8 @@
 #ifndef _RADIO_H
 #define _RADIO_H
 
+#include <cstdint>
+
 #define RX_BUFFER_SIZE 4
 
 

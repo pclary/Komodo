@@ -23,13 +23,13 @@ Servo::Servo(int pin, bool start)
 
 
 
-bool Servo::calibrate(unsigned int plus45, unsigned int minus45, float upperLimit, float lowerLimit)
+bool Servo::calibrate(int plus45, int minus45, float upperLimit, float lowerLimit)
 {
     // Check if given parameters are valid
-    if (upperLimit > lowerLimit)
+    if (upperLimit > lowerLimit && plus45 >= 0 && minus45 >= 0)
     {
         center = (plus45 + minus45) / 2;
-        usPerDegree = ((int)plus45 - (int)center) / 45.0f;
+        usPerDegree = (plus45 - center) / 45.0f;
         this->upperLimit = upperLimit;
         this->lowerLimit = lowerLimit;   
         return true;

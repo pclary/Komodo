@@ -9,7 +9,7 @@
 namespace Radio
 {
 
-    // Private declarations
+    // Internal functions and variables
     int getRegister(int address);
     int getStatus();
     void setRegister(int address, int data);
@@ -20,7 +20,7 @@ namespace Radio
     int _cePin;
     int _irqPin;
     int _controller;
-    unsigned rx_robot_pos;
+    int rx_robot_pos;
     volatile uint32_t rx_controller;
     volatile uint32_t rx_robot[RX_BUFFER_SIZE];
 
@@ -225,7 +225,7 @@ namespace Radio
                 break;
                 
             case STATUS_RN_P_NO_P1:
-                rx_robot[rx_robot_pos++ % RX_BUFFER_SIZE] = data;
+                rx_robot[rx_robot_pos = rx_robot_pos++ % RX_BUFFER_SIZE] = data;
                 break;
                 
             default:
