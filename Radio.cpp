@@ -225,7 +225,8 @@ namespace Radio
                 break;
                 
             case STATUS_RN_P_NO_P1:
-                rx_robot[rx_robot_pos = rx_robot_pos++ % RX_BUFFER_SIZE] = data;
+                if (data >> 31 == 1)
+					rx_robot[rx_robot_pos = rx_robot_pos++ % RX_BUFFER_SIZE] = data;
                 break;
                 
             default:
